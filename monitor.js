@@ -52,6 +52,10 @@ let firstRead = function () {
             return
         }
         initFileNum = paths.length
+        if(initFileNum==0)
+        {
+            start()
+        }
         for (let i = 0; i < paths.length; i++) {
             let ext=path.extname(paths[i])
             if(ext==".jpg"||ext==".jpeg"||ext=='.png') {
