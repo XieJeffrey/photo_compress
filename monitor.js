@@ -11,7 +11,7 @@ let initFileNum = 0//第一次运行时需要压缩的图片数量
 
 let init = function (func, target) {
     notifyFunc = func
-    monitorPath = path.join(__dirname, target)
+    monitorPath = target
     cfgPath = path.join(__dirname, 'imgCfg.json')
     readCfg()
 }
@@ -52,13 +52,12 @@ let firstRead = function () {
             return
         }
         initFileNum = paths.length
-        if(initFileNum==0)
-        {
+        if (initFileNum == 0) {
             start()
         }
         for (let i = 0; i < paths.length; i++) {
-            let ext=path.extname(paths[i])
-            if(ext==".jpg"||ext==".jpeg"||ext=='.png') {
+            let ext = path.extname(paths[i])
+            if (ext == ".jpg" || ext == ".jpeg" || ext == '.png') {
                 if (!fileMap[paths[i]]) {
                     if (notifyFunc)
                         notifyFunc(paths[i])
@@ -100,13 +99,13 @@ let done = function (filename) {
     fileMap[filename] = true
     let fooStr = JSON.stringify(fileMap)
     fs.writeFile(cfgPath, fooStr, function (err) {
-        if(err) {
-            console.log("保存配置表出错:"+err)
+        if (err) {
+            console.log("保存配置表出错:" + err)
             return
         }
     })
 
-    console.log("剩余数量："+initFileNum)
+    console.log("剩余数量：" + initFileNum)
     if (initFileNum != 0) {
         initFileNum--
         if (initFileNum == 0)
