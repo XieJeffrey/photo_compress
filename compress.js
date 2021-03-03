@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-27 14:18:07
- * @LastEditTime: 2021-02-27 14:51:07
+ * @LastEditTime: 2021-03-03 09:55:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \undefinedd:\Work\cocosProject\photo_compress\compress.js
@@ -10,15 +10,15 @@ const tinify = require('tinify')
 const fs = require('fs')
 const path = require('path')
 
-let completeFunc = null//完成压缩的钩子
-let targetPath = ""//转换对象
-let savePath = ""//文件保存路径
-tinify.key = "BmzNGWfKFvHCT2nDhXSfFBDswWsXhMDR"//tiny压缩key
+let completeFunc = null //完成压缩的钩子
+let targetPath = "" //转换对象
+let savePath = "" //文件保存路径
+tinify.key = "BmzNGWfKFvHCT2nDhXSfFBDswWsXhMDR" //tiny压缩key
 
 let init = function (func, target, tmpPath) {
     completeFunc = func
-    targetPath = target// path.join(__dirname,target)
-    savePath = tmpPath// path.join(__dirname, tmpPath)
+    targetPath = target // path.join(__dirname,target)
+    savePath = tmpPath // path.join(__dirname, tmpPath)
 
     if (!fs.existsSync(savePath)) {
         fs.mkdir(savePath, function (err) {
@@ -35,7 +35,9 @@ let compress = function (path) {
     let src = targetPath + "/" + path
     let des = savePath + "/" + path
 
-    setTimeout(function () { _compress(src, des) }, 1000)
+    setTimeout(function () {
+        _compress(src, des)
+    }, 1000)
 }
 
 let _compress = function (path, toPath) {

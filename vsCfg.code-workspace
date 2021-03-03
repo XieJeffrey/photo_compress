@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "..\\DragonSlayer"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"tinify"
+		]
+	}
+}
