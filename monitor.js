@@ -3,11 +3,10 @@ let md5 = require('md5')
 let path = require('path');
 
 let notifyFunc = null
-let fileMap = {}//完成压缩的文件列表
-let cacheMap = {}//正在压缩中文件列表
-let monitorPath = ""//监听目录
-let cfgPath = ""//配置目录
-let initFileNum = 0//第一次运行时需要压缩的图片数量
+let fileMap = {} //完成压缩的文件列表
+let monitorPath = "" //监听目录
+let cfgPath = "" //配置目录
+let initFileNum = 0 //第一次运行时需要压缩的图片数量
 
 let init = function (func, target) {
     notifyFunc = func
@@ -51,23 +50,18 @@ let firstRead = function () {
             console.log("fsRead:" + err)
             return
         }
-        initFileNum = paths.length
-        if (initFileNum == 0) {
-            start()
-        }
+
         for (let i = 0; i < paths.length; i++) {
             let ext = path.extname(paths[i])
-            if (ext == ".jpg" || ext == ".jpeg" || ext == '.png') {
+            if (ext == ".jpg") {
                 if (!fileMap[paths[i]]) {
+                    console.log('压缩文件：' + paths[i])
                     if (notifyFunc)
                         notifyFunc(paths[i])
-                    console.log('压缩文件：' + paths[i])
                 }
             }
-            else {
-                initFileNum--
-            }
         }
+        start()
     })
 }
 
@@ -78,15 +72,13 @@ let start = function () {
             let fooUrl = path.join(monitorPath, filename)
             if (fs.existsSync(fooUrl)) {
                 if (!fileMap[filename]) {
-                    if (!cacheMap[filename]) {
-                        cacheMap[filename] = true
-                        if (notifyFunc)
-                            notifyFunc(filename)
+                    if (notifyFunc)
+                        notifyFunc(filename)
 
-                        console.log('$发现新文件：' + filename)
-                    }
+                    console.log('$发现新文件：' + filename)
                 }
             }
+
         }
     })
 }
@@ -111,7 +103,6 @@ let done = function (filename) {
         if (initFileNum == 0)
             start()
     }
-
 }
 
 module.exports = {

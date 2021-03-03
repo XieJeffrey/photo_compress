@@ -13,6 +13,8 @@
     "node": "^15.8.0"
   },
   "dependencies": {
+    "imagemin": "^7.0.1",
+    "images": "^3.2.3",
     "md5": "^2.3.0",
     "tinify": "^1.6.0-beta.2"
   }
